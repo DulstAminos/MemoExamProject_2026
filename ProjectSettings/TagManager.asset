@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Bullet
+  - Laser
+  - SoundWave
+  - Wall
+  - RedLaserWall
+  - BlueLaserWall
+  - Item
+  - Weapon
+  - Explode
   layers:
   - Default
   - TransparentFX
@@ -13,14 +23,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Bullet
+  - Wall
+  - RedLaserWall
+  - BlueLaserWall
+  - Item
+  - Ground
   - 
   - 
   - 

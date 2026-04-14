@@ -821,6 +821,7 @@ GameObject:
   - component: {fileID: 4156463205937913000}
   - component: {fileID: 4462248587352912050}
   - component: {fileID: 7970808404789026309}
+  - component: {fileID: 688033246394526069}
   m_Layer: 8
   m_Name: Tank_Player_Prefab
   m_TagString: Player
@@ -921,3 +922,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 15
+--- !u!114 &688033246394526069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915695687889621957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd1cf3cd2db0df408231534f07fe0f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turret: {fileID: 1147099622500053535}
+  rotateSpeed: 0

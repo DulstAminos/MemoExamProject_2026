@@ -15,7 +15,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     // 每个预设默认最大缓存数量
     [Header("默认最大缓存数量")]
-    public int defaultCacheCount = 20;
+    public int defaultCacheCount = 10;
 
     private void Awake()
     {

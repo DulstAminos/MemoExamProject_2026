@@ -4746,7 +4746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadc07a6635a351478d70a77af01fdaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCacheCount: 20
+  defaultCacheCount: 10
 --- !u!1 &932956108
 GameObject:
   m_ObjectHideFlags: 0

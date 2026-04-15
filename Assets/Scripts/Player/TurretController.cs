@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TurretController : MonoBehaviour
 {
+    // 玩家开火事件字符常量
+    private const string EVENT_ON_PLAYER_FIRE = "OnPlayerFire";
+
     [Header("炮塔配置")]
     // 坦克的炮台子物体
     public GameObject turret;
@@ -157,6 +160,12 @@ public class TurretController : MonoBehaviour
             muzzlePoint.position,
             muzzlePoint.rotation
         );
+
+        // 广播玩家开关事件
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.TriggerEvent(EVENT_ON_PLAYER_FIRE);
+        }
 
         // 启动炮弹飞行+自动回收协程
         StartCoroutine(ShellMoveAndRecycle(shell));

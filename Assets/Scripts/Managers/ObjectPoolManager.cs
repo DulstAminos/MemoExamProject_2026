@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 通用对象池单例（适配）
+/// 通用对象池单例
 /// 负责：坦克、子弹、爆炸特效、道具球等游戏物体复用
 /// </summary>
 public class ObjectPoolManager : MonoBehaviour

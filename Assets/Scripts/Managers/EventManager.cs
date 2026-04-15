@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 全局事件中心单例（简易版）
+/// 全局事件中心单例
 /// 负责：事件注册、移除、触发，实现模块解耦
 /// </summary>
 public class EventManager : MonoBehaviour

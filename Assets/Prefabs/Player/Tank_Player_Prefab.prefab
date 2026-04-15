@@ -177,6 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8525149076256334551}
   - component: {fileID: 9093961484320502106}
+  - component: {fileID: 1620496499218496222}
   m_Layer: 8
   m_Name: Turret
   m_TagString: Untagged
@@ -222,6 +223,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.6, z: 1.15}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1620496499218496222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147099622500053535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6267d87922a110948861611b036dc3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretRoot: {fileID: 8525149076256334551}
+  rotateSpeed: 0
+  muzzlePoint: {fileID: 8314915409359028646}
+  fireCooldown: 0.5
+  shellSpeed: 20
+  shellLifeTime: 10
+  defaultShellPrefab: {fileID: 1503193343938276015, guid: 9cc4382496dcfa847ad63b454099aa43, type: 3}
 --- !u!1 &1512545606881098014
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,9 +871,10 @@ GameObject:
   - component: {fileID: 8910170850633518327}
   - component: {fileID: 4225726113603529577}
   - component: {fileID: 4156463205937913000}
-  - component: {fileID: 4462248587352912050}
-  - component: {fileID: 7970808404789026309}
-  - component: {fileID: 688033246394526069}
+  - component: {fileID: 2095903834409527693}
+  - component: {fileID: 3816080169870102912}
+  - component: {fileID: 480186635429048253}
+  - component: {fileID: 5106258917859021506}
   m_Layer: 8
   m_Name: Tank_Player_Prefab
   m_TagString: Player
@@ -928,7 +949,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 0.75, z: 1.35}
   m_Center: {x: 0, y: 0.37, z: -0.1}
---- !u!114 &4462248587352912050
+--- !u!114 &2095903834409527693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -937,11 +958,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915695687889621957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6999eee34374ff642be86c4041c36ca0, type: 3}
+  m_Script: {fileID: 11500000, guid: b8db917cdc22023449a36dee863a1ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
---- !u!114 &7970808404789026309
+--- !u!114 &3816080169870102912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -950,11 +971,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915695687889621957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bd31df54682e7845b4a404fc2b36be4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d2dbf5016eec0344baf5ce6d2bec987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 15
---- !u!114 &688033246394526069
+  movement: {fileID: 2095903834409527693}
+--- !u!114 &480186635429048253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -963,13 +985,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8915695687889621957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dd1cf3cd2db0df408231534f07fe0f4, type: 3}
+  m_Script: {fileID: 11500000, guid: e7d8d6899e30d0c47a0f45fef0c15da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 1147099622500053535}
-  rotateSpeed: 0
-  muzzlePoint: {fileID: 8314915409359028646}
-  currentShellPrefab: {fileID: 1503193343938276015, guid: 9cc4382496dcfa847ad63b454099aa43, type: 3}
-  fireCooldown: 0.5
-  shellSpeed: 20
-  shellLifeTime: 10
+  movementModule: {fileID: 2095903834409527693}
+  chassisRotatorModule: {fileID: 3816080169870102912}
+  turretModule: {fileID: 1620496499218496222}
+--- !u!114 &5106258917859021506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915695687889621957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee98773ddd6426469153c2ec118f085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

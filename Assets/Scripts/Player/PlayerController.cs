@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         // 死亡后禁用核心功能
         movementModule?.ResetMovement();
-        turretModule?.PauseFire(600f);
+        turretModule?.BanFire();
         GetComponent<PlayerInputHandler>().enabled = false;
 
         Debug.Log("[PlayerController] 玩家已死亡！");

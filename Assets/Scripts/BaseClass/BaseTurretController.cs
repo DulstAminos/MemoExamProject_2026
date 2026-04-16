@@ -189,7 +189,13 @@ public class BaseTurretController : MonoBehaviour
         ObjectPoolManager.Instance?.ReturnObject(shell);
     }
 
-    // Ô¤ÁôÀ©Õ¹£ºÔÝÍ£¿ª»ð
+    // ½ûÖ¹¿ª»ð
+    public void BanFire() => _isFireable = false;
+
+    // ÔÊÐí¿ª»ð
+    public void AllowFire() => _isFireable = true;
+
+    // ÔÝÍ£¿ª»ð
     public virtual void PauseFire(float pauseTime)
     {
         StartCoroutine(PauseFireCoroutine(pauseTime));
@@ -197,13 +203,13 @@ public class BaseTurretController : MonoBehaviour
 
     private IEnumerator PauseFireCoroutine(float pauseTime)
     {
-        _isFireable = false;
+        BanFire();
         float timer = 0f;
         while (timer < pauseTime)
         {
             timer += Time.deltaTime;
             yield return null;
         }
-        _isFireable = true;
+        AllowFire();
     }
 }

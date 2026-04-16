@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     // 全局通用变量
     public int CurrentLevel { get; set; } // 当前关卡
-    public bool IsPlayerAlive { get; set; } // 玩家是否存活
     public float LevelStartTime { get; set; } // 关卡开始时间（用于评分）
 
     // 场景名称常量
@@ -45,13 +44,21 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); // 切换场景不销毁
+
+        // 注册事件监听
+        AddEventListener();
     }
 
     private void Start()
     {
         // 初始状态：主菜单
         SwitchState(GameState.MainMenu);
-        IsPlayerAlive = true;
+    }
+
+    private void OnDestroy()
+    {
+        // 销毁是移除事件监听
+        RemoveEventListener();
     }
 
     /// <summary>
@@ -68,11 +75,19 @@ public class GameManager : MonoBehaviour
             case GameState.GamePlay:
                 ResumeGame();
                 break;
-            // 切换为“暂停”、“胜利”、“失败”则暂停游戏
+            // 切换为“暂停”则暂停游戏
             case GameState.Pause:
+                PauseGame();
+                break;
+            // 切换为“胜利”则暂停游戏并广播游戏胜利事件
             case GameState.Victory:
+                PauseGame();
+                EventManager.Instance.TriggerEvent("OnGameVictory");
+                break;
+            // 切换为“失败”则暂停游戏并广播游戏失败事件
             case GameState.Defeat:
                 PauseGame();
+                EventManager.Instance.TriggerEvent("OnGameDefeat");
                 break;
         }
     }
@@ -118,5 +133,29 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    /// <summary>
+    /// 注册事件监听
+    /// </summary>
+    private void AddEventListener()
+    {
+        // 注册对玩家死亡的监听
+        EventManager.Instance.AddListener("OnPlayerDead", OnPlayerDeadHandler);
+    }
+
+    /// <summary>
+    /// 移除事件监听
+    /// </summary>
+    private void RemoveEventListener()
+    {
+        // 移除对玩家死亡的监听
+        EventManager.Instance.RemoveListener("OnPlayerDead", OnPlayerDeadHandler);
+    }
+
+    // 玩家死亡后的处理逻辑
+    private void OnPlayerDeadHandler()
+    {
+        SwitchState(GameState.Defeat);
     }
 }

@@ -50,6 +50,7 @@ public class BaseMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_isInitialized || !IsMoving()) return;
+        if (_worldMoveDir.magnitude <= 0.1f) return;
 
         // ¸ÕÌåÆ½»¬ÒÆ¶¯
         Vector3 targetPos = _rb.position + _worldMoveDir * moveSpeed * Time.fixedDeltaTime;

@@ -7,21 +7,17 @@ using UnityEngine;
 ///     3. 处理玩家专属逻辑（血条、受伤、道具）
 ///     4. 触发扩展逻辑
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [Header("核心模块引用")]
     public BaseMovement movementModule; // 移动模块
     public BaseChassisRotator chassisRotatorModule; // 底盘旋转模块
     public BaseTurretController turretModule; // 炮台模块
 
-    //[Header("玩家属性（扩展：生命值）")]
-    //public int maxHp = 100; // 最大生命值
-    //private int _currentHp; // 当前生命值
-
-    //[Header("扩展模块（预留）")]
-    //public AudioSource audioSource; // 音效源
-    //public Animator tankAnimator; // 动画控制器
-    //public ItemManager itemManager; // 道具管理器
+    [Header("生命值系统配置")]
+    [SerializeField] private float _maxHealth = 100f; // 最大生命值
+    private float _currentHealth; // 当前生命值
+    private bool _isDead = false; // 死亡状态标记
 
     private bool _isInitialized;
 
@@ -33,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Init()
     {
         InitModules();
-        //InitPlayerProps();
+        InitHealthSystem();
         _isInitialized = true;
     }
 
@@ -57,16 +53,12 @@ public class PlayerController : MonoBehaviour
             Debug.LogError($"[{nameof(PlayerController)}] 炮台模块未找到！");
     }
 
-    // 初始化玩家属性
-    //private void InitPlayerProps()
-    //{
-    //    _currentHp = maxHp;
-    //    // 初始化音效/动画/道具模块（预留）
-    //    if (audioSource == null)
-    //        audioSource = GetComponent<AudioSource>();
-    //    if (tankAnimator == null)
-    //        tankAnimator = GetComponent<Animator>();
-    //}
+    // 初始化生命值系统
+    private void InitHealthSystem()
+    {
+        _currentHealth = _maxHealth; // 初始生命值=最大生命值
+        _isDead = false; // 初始为存活状态
+    }
     #endregion
 
     #region 输入回调（由PlayerInputHandler调用）
@@ -106,73 +98,68 @@ public class PlayerController : MonoBehaviour
     //}
     #endregion
 
-    #region 扩展接口实现（生命值/受伤/道具）
+    #region 生命值系统
     /// <summary>
     /// 实现IDamageable接口：受伤扣血
     /// </summary>
     /// <param name="damage">伤害值</param>
-    /// <param name="attacker">攻击者</param>
-    //public void TakeDamage(int damage, GameObject attacker = null)
-    //{
-    //    _currentHp = Mathf.Max(0, _currentHp - damage);
+    public void TakeDamage(float damage)
+    {
+        // 防护逻辑：已死亡/未初始化 不处理掉血
+        if (_isDead || !_isInitialized) return;
 
-    //    // 扩展：触发受伤动画/音效
-    //    tankAnimator?.SetTrigger("TakeDamage");
-    //    PlayAudio("Hurt");
+        // 确保伤害值非负
+        damage = Mathf.Max(0, damage);
+        // 扣血后确保生命值≥0
+        _currentHealth = Mathf.Max(0, _currentHealth - damage);
 
-    //    // 扩展：血条UI更新
-    //    UIManager.Instance?.UpdatePlayerHp(_currentHp, maxHp);
+        // 广播生命值变化事件（供UI/其他系统监听）
+        EventManager.Instance.TriggerParamEvent("OnPlayerHealthChanged", _currentHealth);
 
-    //    // 扩展：血量为0时死亡
-    //    if (_currentHp <= 0)
-    //        OnPlayerDead();
-    //}
+        // 检查是否死亡
+        if (_currentHealth <= 0)
+        {
+            OnPlayerDead();
+        }
+    }
 
     /// <summary>
-    /// 实现IItemCollectible接口：拾取道具
+    /// 当前生命值（只读，符合IDamageable接口）
     /// </summary>
-    /// <param name="item">拾取的道具</param>
-    //public void CollectItem(ItemBase item)
-    //{
-    //    if (item == null) return;
+    public float CurrentHealth => _currentHealth;
 
-    //    // 根据道具类型处理（加血、加弹药、切换武器等）
-    //    switch (item.ItemType)
-    //    {
-    //        case ItemType.Health:
-    //            _currentHp = Mathf.Min(maxHp, _currentHp + item.Value);
-    //            UIManager.Instance?.UpdatePlayerHp(_currentHp, maxHp);
-    //            PlayAudio("CollectHealth");
-    //            break;
-    //        case ItemType.Shell:
-    //            itemManager.AddShell(item.ShellPrefab, item.Count);
-    //            PlayAudio("CollectShell");
-    //            break;
-    //        case ItemType.Buff:
-    //            // 扩展：添加增益buff（如移动加速、开火冷却减少）
-    //            ApplyBuff(item.BuffType, item.Duration);
-    //            PlayAudio("CollectBuff");
-    //            break;
-    //    }
-    //}
+    /// <summary>
+    /// 最大生命值（只读，符合IDamageable接口）
+    /// </summary>
+    public float MaxHealth => _maxHealth;
 
-    // 玩家死亡逻辑（扩展）
-    //private void OnPlayerDead()
-    //{
-    //    // 停止所有模块
-    //    movementModule.ResetMovement();
-    //    turretModule.PauseFire(float.MaxValue); // 永久暂停开火
-
-    //    // 触发死亡动画/音效
-    //    tankAnimator?.SetTrigger("Dead");
-    //    PlayAudio("Dead");
-
-    //    // 扩展：游戏结束逻辑
-    //    GameManager.Instance?.OnPlayerDead();
-    //}
+    /// <summary>
+    /// 是否死亡（只读，符合IDamageable接口）
+    /// </summary>
+    public bool IsDead => _isDead;
     #endregion
 
-    #region 扩展方法（音效/动画/Buff）
+    #region 死亡逻辑
+    /// <summary>
+    /// 玩家死亡处理
+    /// </summary>
+    private void OnPlayerDead()
+    {
+        _isDead = true;
+
+        // 广播玩家死亡全局事件
+        EventManager.Instance.TriggerEvent("OnPlayerDead");
+
+        // 死亡后禁用核心功能
+        movementModule?.ResetMovement();
+        turretModule?.PauseFire(600f);
+        GetComponent<PlayerInputHandler>().enabled = false;
+
+        Debug.Log("[PlayerController] 玩家已死亡！");
+    }
+    #endregion
+
+    #region 扩展方法（音效/动画/Buff）（未实现）
     /// <summary>
     /// 播放音效（统一管理）
     /// </summary>

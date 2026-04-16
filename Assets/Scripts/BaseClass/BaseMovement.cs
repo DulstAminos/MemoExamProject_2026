@@ -33,7 +33,7 @@ public class BaseMovement : MonoBehaviour
     /// </summary>
     public Vector3 GetMoveDir() => _worldMoveDir;
 
-    private void Init()
+    public void Init()
     {
         _rb = GetComponent<Rigidbody>();
         if (_rb == null)

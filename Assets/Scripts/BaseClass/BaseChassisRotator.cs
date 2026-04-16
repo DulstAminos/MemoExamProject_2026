@@ -13,7 +13,7 @@ public class BaseChassisRotator : MonoBehaviour
     public BaseMovement movement; // 手动绑定或自动获取
     private bool _isInitialized;
 
-    private void Init()
+    public void Init()
     {
         if (movement == null)
             movement = GetComponent<BaseMovement>();

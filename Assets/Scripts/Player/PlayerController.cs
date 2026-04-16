@@ -7,7 +7,7 @@ using UnityEngine;
 ///     3. 处理玩家专属逻辑（血条、受伤、道具）
 ///     4. 触发扩展逻辑
 /// </summary>
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour, IDamageable, IPoolable
 {
     [Header("核心模块引用")]
     public BaseMovement movementModule; // 移动模块
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Awake() => Init();
 
     // 初始化
-    private void Init()
+    public void Init()
     {
         InitModules();
         InitHealthSystem();
@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour, IDamageable
             Debug.LogError($"[{nameof(PlayerController)}] 底盘旋转模块未找到！");
         if (turretModule == null)
             Debug.LogError($"[{nameof(PlayerController)}] 炮台模块未找到！");
+
+        movementModule?.Init();
+        chassisRotatorModule?.Init();
+        turretModule?.Init();
     }
 
     // 初始化生命值系统

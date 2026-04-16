@@ -68,7 +68,7 @@ public class BaseTurretController : MonoBehaviour
     }
 
     // 初始化
-    private void Init()
+    public void Init()
     {
         _lastFireTime = -fireCooldown; // 初始无冷却
         _currentShellPrefab = defaultShellPrefab ?? defaultShellPrefab;

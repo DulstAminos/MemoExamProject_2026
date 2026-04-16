@@ -38,21 +38,30 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject GetObject(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot)
     {
         string key = prefab.name;
+        GameObject obj;
 
         // 池子里有=>直接取
         if (_poolDict.ContainsKey(key) && _poolDict[key].Count > 0)
         {
-            GameObject obj = _poolDict[key].Dequeue();
+            obj = _poolDict[key].Dequeue();
             obj.SetActive(true);
             obj.transform.position = spawnPos;
             obj.transform.rotation = spawnRot;
-            return obj;
+        }
+        // 池子里没有=>新建
+        else
+        {
+            obj = Instantiate(prefab, spawnPos, spawnRot);
+            obj.name = key; // 统一名称，避免(Clone)导致key错误
         }
 
-        // 池子里没有=>新建
-        GameObject newObj = Instantiate(prefab, spawnPos, spawnRot);
-        newObj.name = key; // 统一名称，避免(Clone)导致key错误
-        return newObj;
+        // 实现了IPoolable就自动调用Init()
+        if (obj.TryGetComponent(out IPoolable poolable))
+        {
+            poolable.Init();
+        }
+
+        return obj;
     }
 
     /// <summary>

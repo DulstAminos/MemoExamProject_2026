@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IPoolable
     /// <param name="damage">伤害值</param>
     public void TakeDamage(float damage)
     {
-        // 防护逻辑：已死亡/未初始化 不处理掉血
+        // 已死亡/未初始化 不处理掉血
         if (_isDead || !_isInitialized) return;
 
         // 确保伤害值非负
@@ -128,17 +128,17 @@ public class PlayerController : MonoBehaviour, IDamageable, IPoolable
     }
 
     /// <summary>
-    /// 当前生命值（只读，符合IDamageable接口）
+    /// 当前生命值
     /// </summary>
     public float CurrentHealth => _currentHealth;
 
     /// <summary>
-    /// 最大生命值（只读，符合IDamageable接口）
+    /// 最大生命值
     /// </summary>
     public float MaxHealth => _maxHealth;
 
     /// <summary>
-    /// 是否死亡（只读，符合IDamageable接口）
+    /// 是否死亡
     /// </summary>
     public bool IsDead => _isDead;
     #endregion

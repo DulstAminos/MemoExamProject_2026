@@ -26,12 +26,15 @@ public class PlayerController : MonoBehaviour, IDamageable, IPoolable
     private void Awake() => Init();
 
     // 初始化
-    public void Init()
+    private void Init()
     {
         InitModules();
         InitHealthSystem();
         _isInitialized = true;
     }
+
+    // IPoolable接口实现
+    public void Init(object param) => Init();
 
     // 初始化所有功能模块
     private void InitModules()

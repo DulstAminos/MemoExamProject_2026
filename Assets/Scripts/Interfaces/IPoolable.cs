@@ -7,6 +7,8 @@ public interface IPoolable
     /// <summary>
     /// 初始化复用对象（重置位置、旋转、状态、参数等）
     /// 对象池GetObject时自动调用
+    /// 可传递参数
     /// </summary>
-    void Init();
+    /// /// <param name="param">初始化参数</param>
+    void Init(object param);
 }

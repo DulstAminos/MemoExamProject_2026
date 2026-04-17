@@ -35,7 +35,7 @@ public class ObjectPoolManager : MonoBehaviour
     /// <param name="prefab">要获取的物体预设</param>
     /// <param name="spawnPos">生成位置</param>
     /// <param name="spawnRot">生成旋转</param>
-    public GameObject GetObject(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot)
+    public GameObject GetObject(GameObject prefab, Vector3 spawnPos, Quaternion spawnRot, object initParam = null)
     {
         string key = prefab.name;
         GameObject obj;
@@ -58,7 +58,7 @@ public class ObjectPoolManager : MonoBehaviour
         // 实现了IPoolable就自动调用Init()
         if (obj.TryGetComponent(out IPoolable poolable))
         {
-            poolable.Init();
+            poolable.Init(initParam);
         }
 
         return obj;

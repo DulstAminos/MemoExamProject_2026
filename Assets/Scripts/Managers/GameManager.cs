@@ -106,6 +106,8 @@ public class GameManager : MonoBehaviour
     /// <summary> 打开主菜单 </summary>
     public void LoadMainMenu()
     {
+        // 打开主菜单清空所有对象池
+        ObjectPoolManager.Instance.ClearAllPools();
         SwitchState(GameState.MainMenu);
         SceneManager.LoadScene(Scene_MainMenu);
     }
@@ -113,6 +115,8 @@ public class GameManager : MonoBehaviour
     /// <summary> 打开选关界面 </summary>
     public void LoadLevelSelect()
     {
+        // 打开选关界面清空所有对象池
+        ObjectPoolManager.Instance.ClearAllPools();
         SwitchState(GameState.LevelSelect);
         SceneManager.LoadScene(Scene_LevelSelect);
     }

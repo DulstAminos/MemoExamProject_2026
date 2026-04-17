@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 炮台种类枚举
+/// <summary>
+/// 炮台种类
+/// </summary>
 public enum TurretType
 {
     Normal,     // 普通炮台

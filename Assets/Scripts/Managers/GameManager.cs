@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 销毁是移除事件监听
+        // 销毁时移除事件监听
         RemoveEventListener();
     }
 

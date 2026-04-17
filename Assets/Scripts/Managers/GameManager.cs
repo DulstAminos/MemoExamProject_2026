@@ -44,13 +44,13 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); // 切换场景不销毁
-
-        // 注册事件监听
-        AddEventListener();
     }
 
     private void Start()
     {
+        // 注册事件监听
+        AddEventListener();
+
         // 初始状态：主菜单
         SwitchState(GameState.MainMenu);
     }

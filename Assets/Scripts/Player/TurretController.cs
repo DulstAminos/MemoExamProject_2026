@@ -5,6 +5,9 @@ public class TurretController : MonoBehaviour
     [Header("模型引用")]
     public Transform turretTransform; // 拖入炮塔模型
 
+    [Header("开火脚本引用")]
+    public PlayerShooting shooting;
+
     // 创建一个数学上的无限大地平面，高度在Y=0，朝向向上。用来接收鼠标射线。
     private Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -27,6 +30,7 @@ public class TurretController : MonoBehaviour
 
                 // 瞬间转向鼠标位置
                 turretTransform.LookAt(lookPoint);
+                shooting.Fire();
             }
         }
     }

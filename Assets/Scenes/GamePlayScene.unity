@@ -1664,6 +1664,7 @@ GameObject:
   - component: {fileID: 4166426367105071828}
   - component: {fileID: 8924989704453646988}
   - component: {fileID: 8924989704453646989}
+  - component: {fileID: 8924989704453646990}
   m_Layer: 8
   m_Name: Tank_Player_Test
   m_TagString: Player
@@ -1716,6 +1717,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turretTransform: {fileID: 8517377948237776043}
+  shooting: {fileID: 8924989704453646990}
+--- !u!114 &8924989704453646990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918901920799913401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4528db5500bb2f546905b8fa9597344f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 6200331139038720880, guid: 8d6fd0156ab18da40a358b23b021cb5b, type: 3}
+  firePoint: {fileID: 8942790872428048567}
 --- !u!4 &8942790872428048567
 Transform:
   m_ObjectHideFlags: 0

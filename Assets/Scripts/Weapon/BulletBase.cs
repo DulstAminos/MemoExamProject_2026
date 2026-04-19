@@ -65,11 +65,11 @@ public class BulletBase : MonoBehaviour
                 PoolManager.Instance.Despawn(gameObject);
             }
         }
-        // 如果撞到带有 Health 的物体（坦克）
-        else if (collision.gameObject.GetComponent<Health>() != null)
+        // 如果撞到的敌对坦克
+        else if (collision.gameObject.TryGetComponent<TankBase>(out TankBase hitTank))
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(damageAmount); // 造成10点伤害
-            PoolManager.Instance.Despawn(gameObject); // 子弹命中后回收
+            hitTank.TakeDamage(damageAmount);
+            PoolManager.Instance.Despawn(gameObject);
         }
     }
 }

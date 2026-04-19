@@ -1,74 +1,180 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour
+[RequireComponent(typeof(NavMeshAgent))]
+public class EnemyAI : TankBase // 继承你的坦克基类
 {
-    [Header("状态参数")]
-    public float attackRange = 8f; // 攻击距离
-    public float fireCooldown = 2f; // 开火冷却
-    private float fireTimer;
-
-    [Header("组件引用")]
-    public Transform turretTransform; // 敌人的炮塔模型
-    public Transform firePoint;       // 敌人的开火点
-    public GameObject bulletPrefab;   // 子弹预制体
-
-    private NavMeshAgent agent;
-    private Transform playerTransform;
-
-    void Start()
+    public enum AIState
     {
+        Patrol,         // 游走
+        ChaseAndFire,   // 追逐和开火
+        Death           // 死亡
+    }
+
+    [Header("[AI] 视野与感知配置")]
+    public float viewRadius = 15f;      // 视野距离
+    [Range(0, 360)] public float fovAngle = 120f; // 视野角度
+    public float attackRange = 10f;     // 攻击距离
+
+    [Header("[AI] 游走配置")]
+    public float patrolRadius = 20f;    // 游走范围半径
+
+    private AIState currentState;
+    private NavMeshAgent agent;
+    private Transform targetPlayer;
+
+    private Vector3 lastKnownPlayerPos; // 记忆点
+    private bool hasMemory = false;     // 是否有记忆点
+
+    protected override void Awake()
+    {
+        base.Awake();
         agent = GetComponent<NavMeshAgent>();
-        // 自动寻找场景中Tag为Player的物体
+
+        // 剥夺 Agent 的控制权，只让它算路，统一使用 TankBase 的刚体移动和旋转
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable(); // 重置血量
+
+        // 对象池复用时的状态重置
+        currentState = AIState.Patrol;
+        hasMemory = false;
+
+        agent.enabled = true;
+        agent.speed = moveSpeed; // 同步基类速度给Agent用于计算
+
+        // 重新寻找玩家
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) playerTransform = player.transform;
+        if (player != null) targetPlayer = player.transform;
+
+        SetRandomPatrolPoint();
     }
 
     void Update()
     {
-        if (playerTransform == null) return; // 玩家死了就不动了
+        if (currentState == AIState.Death) return;
 
-        // 计算与玩家的距离
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        // 同步物理位置给 Agent，让它基于当前真实物理位置算路
+        agent.nextPosition = transform.position;
 
-        if (distanceToPlayer <= attackRange)
+        // 视野感知刷新
+        CheckFOV();
+
+        // 状态机行为更新
+        switch (currentState)
         {
-            // 进入攻击范围：停止寻路，瞄准开火
-            agent.isStopped = true;
-            AimAtPlayer();
-
-            fireTimer += Time.deltaTime;
-            if (fireTimer >= fireCooldown)
-            {
-                Fire();
-                fireTimer = 0f;
-            }
-        }
-        else
-        {
-            // 超出攻击范围：追逐玩家
-            agent.isStopped = false;
-            agent.SetDestination(playerTransform.position);
-
-            // 底盘朝向由 NavMeshAgent 自动处理，让炮塔也朝向正前方或者保持不动即可
-            turretTransform.rotation = Quaternion.Slerp(turretTransform.rotation, transform.rotation, Time.deltaTime * 5f);
+            case AIState.Patrol:
+                UpdatePatrol();
+                break;
+            case AIState.ChaseAndFire:
+                UpdateChaseAndFire();
+                break;
         }
     }
 
-    void AimAtPlayer()
+    void FixedUpdate()
     {
-        // 计算炮塔的目标方向 (忽略Y轴高度差)
-        Vector3 direction = (playerTransform.position - turretTransform.position).normalized;
-        direction.y = 0;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        if (currentState == AIState.Death) return;
 
-        // 平滑旋转炮塔
-        turretTransform.rotation = Quaternion.Slerp(turretTransform.rotation, lookRotation, Time.deltaTime * 10f);
+        // 调用基类统合能力,让基类推着刚体按 Agent 算出的方向走
+        Vector3 moveDir = agent.desiredVelocity.normalized;
+        MoveTank(moveDir);
     }
 
-    void Fire()
+    private void CheckFOV()
     {
-        // 利用池化系统发射子弹
-        PoolManager.Instance.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (targetPlayer == null || !targetPlayer.gameObject.activeInHierarchy) return;
+
+        Vector3 dirToPlayer = (targetPlayer.position - transform.position).normalized;
+        float distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
+
+        // 视野检测：距离足够，且在炮塔正前方的夹角内
+        bool inFOV = distanceToPlayer <= viewRadius && Vector3.Angle(turretTransform.forward, dirToPlayer) <= fovAngle / 2f;
+
+        if (inFOV)
+        {
+            // 看到玩家，刷新记忆点，进入追逐
+            lastKnownPlayerPos = targetPlayer.position;
+            hasMemory = true;
+            currentState = AIState.ChaseAndFire;
+        }
     }
+
+    private void UpdatePatrol()
+    {
+        // 炮塔朝向移动方向（边走边看前面）
+        AimAndFire(transform.position + agent.desiredVelocity, false);
+
+        // 如果接近目标点，找下一个点
+        if (!agent.pathPending && agent.remainingDistance < 1f)
+        {
+            SetRandomPatrolPoint();
+        }
+    }
+
+    private void UpdateChaseAndFire()
+    {
+        if (!hasMemory) return;
+
+        agent.SetDestination(lastKnownPlayerPos);
+        float distanceToMemory = Vector3.Distance(transform.position, lastKnownPlayerPos);
+
+        // 无论如何，炮塔瞄准记忆点；如果距离小于攻击距离，尝试开火
+        bool tryFire = distanceToMemory <= attackRange;
+        AimAndFire(lastKnownPlayerPos, tryFire);
+
+        // 如果到达了最后已知位置附近
+        if (distanceToMemory <= 1f)
+        {
+            // 此时如果玩家不在视野里（刚才CheckFOV没有更新记忆点），说明追丢了
+            // 恢复游走状态
+            currentState = AIState.Patrol;
+            hasMemory = false;
+            SetRandomPatrolPoint();
+        }
+    }
+
+    private void SetRandomPatrolPoint()
+    {
+        Vector3 randomDir = Random.insideUnitSphere * patrolRadius;
+        randomDir.y = 0f;
+        randomDir += transform.position;
+        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, patrolRadius, 1))
+        {
+            agent.SetDestination(hit.position);
+        }
+    }
+
+    protected override void Die()
+    {
+        currentState = AIState.Death;
+        agent.enabled = false;
+
+        // TODO: 明天在这里接入爆炸特效 PoolManager.Instance.Spawn(...)
+
+        base.Die(); // 调用基类回收自身
+    }
+
+#if UNITY_EDITOR
+    // 这是一个只在编辑器显示的辅助功能，帮你可视化视野
+    private void OnDrawGizmosSelected()
+    {
+        if (turretTransform != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, viewRadius);
+
+            Vector3 rightLimit = Quaternion.AngleAxis(fovAngle / 2f, Vector3.up) * turretTransform.forward;
+            Vector3 leftLimit = Quaternion.AngleAxis(-fovAngle / 2f, Vector3.up) * turretTransform.forward;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(turretTransform.position, rightLimit * viewRadius);
+            Gizmos.DrawRay(turretTransform.position, leftLimit * viewRadius);
+        }
+    }
+#endif
 }

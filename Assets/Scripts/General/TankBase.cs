@@ -5,17 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class TankBase : MonoBehaviour
 {
-    [Header("生命与模型配置")]
+    [Header("[基础] 生命与模型配置")]
     public float maxHealth = 30f;
     public Transform chassisTransform; // 底盘模型
     public Transform turretTransform;  // 炮塔模型
     public Transform firePoint;        // 开火点
 
-    [Header("运动与旋转配置")]
+    [Header("[基础] 运动与旋转配置")]
     public float moveSpeed = 5f;
     public float chassisTurnSpeed = 10f; // 底盘旋转平滑度
 
-    [Header("战斗配置")]
+    [Header("[基础] 战斗配置")]
     public GameObject bulletPrefab;      // 对应的子弹预制体
     public float fireCooldown = 1f;      // 开火冷却时间
 

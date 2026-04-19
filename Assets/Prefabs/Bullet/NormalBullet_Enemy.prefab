@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 2196398044700423534}
   - component: {fileID: 5203888981178875254}
   - component: {fileID: -1141964354807650840}
-  m_Layer: 10
-  m_Name: NormalBullet
+  m_Layer: 17
+  m_Name: NormalBullet_Enemy
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,3 +180,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   maxBounces: 2
+  damageAmount: 10
+  lifeTime: 3

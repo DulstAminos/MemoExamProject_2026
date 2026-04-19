@@ -837,7 +837,7 @@ MonoBehaviour:
   fireCooldown: 2
   turretTransform: {fileID: 2048409343}
   firePoint: {fileID: 175261442}
-  bulletPrefab: {fileID: 6200331139038720880, guid: 8d6fd0156ab18da40a358b23b021cb5b, type: 3}
+  bulletPrefab: {fileID: 6200331139038720880, guid: 9ea421edf47d08d43810bcaad2678422, type: 3}
 --- !u!195 &636345100
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class EnemyAI : TankBase // 继承你的坦克基类
     public float viewRadius = 15f;      // 视野距离
     [Range(0, 360)] public float fovAngle = 120f; // 视野角度
     public float attackRange = 10f;     // 攻击距离
+    public LayerMask obstacleMask; // 用于配置哪些图层会阻挡视野
 
     [Header("[AI] 游走配置")]
     public float patrolRadius = 20f;    // 游走范围半径
@@ -92,15 +93,19 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         Vector3 dirToPlayer = (targetPlayer.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, targetPlayer.position);
 
-        // 视野检测：距离足够，且在炮塔正前方的夹角内
-        bool inFOV = distanceToPlayer <= viewRadius && Vector3.Angle(turretTransform.forward, dirToPlayer) <= fovAngle / 2f;
+        // 初步判断：距离足够，且在炮塔正前方的夹角内
+        bool inRangeAndAngle = distanceToPlayer <= viewRadius && Vector3.Angle(turretTransform.forward, dirToPlayer) <= fovAngle / 2f;
 
-        if (inFOV)
+        if (inRangeAndAngle)
         {
-            // 看到玩家，刷新记忆点，进入追逐
-            lastKnownPlayerPos = targetPlayer.position;
-            hasMemory = true;
-            currentState = AIState.ChaseAndFire;
+            // 射线检测判断遮挡
+            if (!Physics.Raycast(turretTransform.position, dirToPlayer, distanceToPlayer, obstacleMask))
+            {
+                // 看到玩家，刷新记忆点，进入追逐
+                lastKnownPlayerPos = targetPlayer.position;
+                hasMemory = true;
+                currentState = AIState.ChaseAndFire;
+            }
         }
     }
 

@@ -34,18 +34,17 @@ public class PoolManager : MonoBehaviour
         if (poolDictionary[poolKey].Count > 0)
         {
             objToSpawn = poolDictionary[poolKey].Dequeue();
+            // 设置位置、旋转并激活
+            objToSpawn.transform.position = position;
+            objToSpawn.transform.rotation = rotation;
+            objToSpawn.SetActive(true);
         }
         else
         {
             // 如果队列空了，新建一个
-            objToSpawn = Instantiate(prefab);
-            objToSpawn.name = prefab.name; // 统一名字，去掉 "(Clone)" 后缀
+            objToSpawn = Instantiate(prefab, position, rotation);
+            objToSpawn.name = poolKey; // 统一名字，去掉 "(Clone)" 后缀
         }
-
-        // 设置位置、旋转并激活
-        objToSpawn.transform.position = position;
-        objToSpawn.transform.rotation = rotation;
-        objToSpawn.SetActive(true);
 
         return objToSpawn;
     }

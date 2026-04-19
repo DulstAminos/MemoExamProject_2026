@@ -13,8 +13,7 @@ public class PlayerController : TankBase
         movementInput = new Vector3(moveX, 0f, moveZ).normalized;
 
         // 获取瞄准与开火输入
-        bool isTryingToFire = Input.GetMouseButton(0);
-        if (isTryingToFire)
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (groundPlane.Raycast(ray, out float rayDistance))
@@ -22,7 +21,7 @@ public class PlayerController : TankBase
                 Vector3 aimPoint = ray.GetPoint(rayDistance);
 
                 // 调用基类的统合方法：瞄准，如果按了左键且瞄准完成则自动开火
-                AimAndFire(aimPoint, isTryingToFire);
+                AimAndFire(aimPoint, true);
             }
         }
     }

@@ -80,10 +80,10 @@ public abstract class TankBase : MonoBehaviour
     /// </summary>
     private void ExecuteFire()
     {
-        lastFireTime = Time.time;
-        if (bulletPrefab != null && firePoint != null)
+        if (bulletPrefab != null && firePoint != null && (lastFireTime + fireCooldown <= Time.time))
         {
             PoolManager.Instance.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
+            lastFireTime = Time.time;
         }
     }
 

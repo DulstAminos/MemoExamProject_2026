@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 
 // 抽象基类：定义了坦克所有外在表现的基础能力，不可直接挂载
@@ -61,21 +62,17 @@ public abstract class TankBase : MonoBehaviour
     /// <param name="tryFire">是否尝试开火</param>
     public void AimAndFire(Vector3 targetPos, bool tryFire)
     {
-        Vector3 dirToTarget = (targetPos - turretTransform.position).normalized;
-        dirToTarget.y = 0; // 锁定Y轴
+        Vector3 lookPoint = new Vector3(targetPos.x, turretTransform.position.y, targetPos.z);
 
-        if (dirToTarget != Vector3.zero)
+        // 炮塔立刻转向
+        turretTransform.LookAt(lookPoint);
+
+        // 判断是否完成转向并开火
+        if (tryFire)
         {
-            // 炮塔立刻转向
-            Quaternion targetRot = Quaternion.LookRotation(dirToTarget);
-            turretTransform.LookAt(targetPos);
-
-            // 判断是否完成转向并开火
-            if (tryFire)
-            {
-                ExecuteFire();
-            }
+            ExecuteFire();
         }
+
     }
 
     /// <summary>

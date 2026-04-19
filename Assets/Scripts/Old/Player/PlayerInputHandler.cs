@@ -5,12 +5,12 @@ using UnityEngine;
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
-    private PlayerController _playerController;
+    private PlayerController_Old _playerController;
     private bool _isInitialized;
 
     private void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<PlayerController_Old>();
         if (_playerController == null)
         {
             Debug.LogError($"[{nameof(PlayerInputHandler)}] Î´ÕÒµ½PlayerController×é¼þ£¡");

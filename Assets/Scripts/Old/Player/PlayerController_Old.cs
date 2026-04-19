@@ -7,7 +7,7 @@ using UnityEngine;
 ///     3. 处理玩家专属逻辑（血条、受伤、道具）
 ///     4. 触发扩展逻辑
 /// </summary>
-public class PlayerController : MonoBehaviour, IDamageable, IPoolable
+public class PlayerController_Old : MonoBehaviour, IDamageable, IPoolable
 {
     [Header("核心模块引用")]
     public BaseMovement movementModule; // 移动模块
@@ -49,11 +49,11 @@ public class PlayerController : MonoBehaviour, IDamageable, IPoolable
 
         // 校验模块
         if (movementModule == null)
-            Debug.LogError($"[{nameof(PlayerController)}] 移动模块未找到！");
+            Debug.LogError($"[{nameof(PlayerController_Old)}] 移动模块未找到！");
         if (chassisRotatorModule == null)
-            Debug.LogError($"[{nameof(PlayerController)}] 底盘旋转模块未找到！");
+            Debug.LogError($"[{nameof(PlayerController_Old)}] 底盘旋转模块未找到！");
         if (turretModule == null)
-            Debug.LogError($"[{nameof(PlayerController)}] 炮台模块未找到！");
+            Debug.LogError($"[{nameof(PlayerController_Old)}] 炮台模块未找到！");
 
         movementModule?.Init();
         chassisRotatorModule?.Init();

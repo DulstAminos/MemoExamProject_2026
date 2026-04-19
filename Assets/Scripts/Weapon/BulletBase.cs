@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour
 {
+    [Header("子弹属性配置")]
     public float speed = 15f;
     public int maxBounces = 2; // 最大反弹次数
-    private int currentBounces = 0;
+    public float damageAmount = 10f; // 伤害
+    public float lifeTime = 3f;      // 生命周期
 
+    private int currentBounces = 0;
     private Rigidbody rb;
 
     void Awake()
@@ -20,7 +23,7 @@ public class BulletBase : MonoBehaviour
         rb.velocity = transform.forward * speed; // 重新赋予速度
 
         // 开启一个延迟回收，防止子弹永远在场上弹（3秒后回收自身）
-        Invoke("DelayDespawn", 3f);
+        Invoke(nameof(DelayDespawn), lifeTime);
     }
 
     void OnDisable()
@@ -32,6 +35,21 @@ public class BulletBase : MonoBehaviour
     void DelayDespawn()
     {
         PoolManager.Instance.Despawn(gameObject);
+    }
+
+    void Update()
+    {
+        // 如果子弹正在移动，让其朝向对其速度方向
+        if (rb.velocity.sqrMagnitude > 0.1f)
+        {
+            transform.forward = rb.velocity.normalized;
+        }
+    }
+
+    // 强制子弹保持恒定速度（防止摩擦或碰撞导致变慢）
+    void FixedUpdate()
+    {
+        rb.velocity = rb.velocity.normalized * speed;
     }
 
     // 物理碰撞检测
@@ -50,14 +68,8 @@ public class BulletBase : MonoBehaviour
         // 如果撞到带有 Health 的物体（坦克）
         else if (collision.gameObject.GetComponent<Health>() != null)
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(10f); // 造成10点伤害
+            collision.gameObject.GetComponent<Health>().TakeDamage(damageAmount); // 造成10点伤害
             PoolManager.Instance.Despawn(gameObject); // 子弹命中后回收
         }
-    }
-
-    // 强制子弹保持恒定速度（防止摩擦或碰撞导致变慢）
-    void FixedUpdate()
-    {
-        rb.velocity = rb.velocity.normalized * speed;
     }
 }

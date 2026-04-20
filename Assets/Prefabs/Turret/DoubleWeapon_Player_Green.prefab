@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9646ef2545f804f4e993309c275fe2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireCooldown: 0.4
+  fireCooldown: 0.6
   bulletPrefab: {fileID: 6200331139038720880, guid: 8d6fd0156ab18da40a358b23b021cb5b, type: 3}
   leftFirePoint: {fileID: 5648476110509858267}
   rightFirePoint: {fileID: 1449880957308285788}

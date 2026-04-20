@@ -7,21 +7,19 @@ public abstract class TankBase : MonoBehaviour
 {
     [Header("[基础] 生命与模型配置")]
     public float maxHealth = 30f;
-    public Transform chassisTransform; // 底盘模型
-    public Transform turretTransform;  // 炮塔模型
-    public Transform firePoint;        // 开火点
+    public Transform chassisTransform; // 底盘根物体
+    public Transform turretTransform;  // 炮塔根物体
 
     [Header("[基础] 运动与旋转配置")]
     public float moveSpeed = 5f;
     public float chassisTurnSpeed = 10f; // 底盘旋转平滑度
 
-    [Header("[基础] 战斗配置")]
-    public GameObject bulletPrefab;      // 对应的子弹预制体
-    public float fireCooldown = 1f;      // 开火冷却时间
+    [Header("[武器] 管理")]
+    public GameObject defaultWeaponPrefab; // 默认炮台预制体（决定敌人类别/玩家初始状态）
+    protected WeaponControllerBase currentWeapon; // 当前挂载的武器控制器
 
     protected float currentHealth;
     protected Rigidbody rb;
-    protected float lastFireTime;
 
     protected virtual void Awake()
     {
@@ -31,7 +29,21 @@ public abstract class TankBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth; // 对象池复用时重置生命值
-        lastFireTime = 0f;
+        // 如果还没有武器，初始化默认武器
+        if (currentWeapon == null && defaultWeaponPrefab != null)
+        {
+            InstantiateDefaultWeapon();
+        }
+    }
+
+    // 初始化默认武器
+    private void InstantiateDefaultWeapon()
+    {
+        GameObject weaponObj = Instantiate(defaultWeaponPrefab, turretTransform);
+        // 确保模型位置正确归零
+        weaponObj.transform.localPosition = Vector3.zero;
+        weaponObj.transform.localRotation = Quaternion.identity;
+        currentWeapon = weaponObj.GetComponent<WeaponControllerBase>();
     }
 
     //---------------------------------------------------------
@@ -80,12 +92,14 @@ public abstract class TankBase : MonoBehaviour
     /// </summary>
     private void ExecuteFire()
     {
-        if (bulletPrefab != null && firePoint != null && (lastFireTime + fireCooldown <= Time.time))
+        if (currentWeapon != null)
         {
-            PoolManager.Instance.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
-            lastFireTime = Time.time;
+            currentWeapon.TryFire(); // 调用武器控制器的接口
         }
     }
+
+    // 提供可重写的武器切换接口
+    public virtual void SwitchWeapon(GameObject newWeaponPrefab) { }
 
     /// <summary>
     /// 受击处理

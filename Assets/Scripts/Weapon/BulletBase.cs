@@ -4,12 +4,19 @@ public class BulletBase : MonoBehaviour
 {
     [Header("子弹属性配置")]
     public float speed = 15f;
-    public int maxBounces = 2; // 最大反弹次数
+    public int defaultMaxBounces = 2; // 默认最大反弹次数
     public float damageAmount = 10f; // 伤害
     public float lifeTime = 3f;      // 生命周期
 
+    private int maxBounces;     // 当前最大反弹次数
     private int currentBounces = 0;
     private Rigidbody rb;
+
+    // 增加反弹次数
+    public void AddBonusBounce(int bonus)
+    {
+        maxBounces += bonus;
+    }
 
     void Awake()
     {
@@ -19,6 +26,7 @@ public class BulletBase : MonoBehaviour
     // 每次从对象池取出来（被激活）时调用
     void OnEnable()
     {
+        maxBounces = defaultMaxBounces; // 重置最大反弹次数
         currentBounces = 0; // 重置反弹次数
         rb.velocity = transform.forward * speed; // 重新赋予速度
 

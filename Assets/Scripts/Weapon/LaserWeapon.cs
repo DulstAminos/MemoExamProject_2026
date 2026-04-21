@@ -43,8 +43,8 @@ public class LaserWeapon : WeaponControllerBase
         RaycastHit[] hits = Physics.RaycastAll(firePoint.position, direction, actualRange);
         foreach (var hit in hits)
         {
-            // 如果碰到了带有TankBase的物体（敌人），且不是自己
-            if (hit.collider.TryGetComponent<TankBase>(out TankBase tank) && tank.gameObject != this.transform.root.gameObject)
+            // 如果碰到了带有TankBase的物体（敌人），且不是己方坦克
+            if (hit.collider.TryGetComponent<TankBase>(out TankBase tank) && tank.gameObject.layer != this.transform.root.gameObject.layer)
             {
                 tank.TakeDamage(damage);
             }

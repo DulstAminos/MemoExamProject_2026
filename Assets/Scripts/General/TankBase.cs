@@ -29,17 +29,45 @@ public abstract class TankBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth; // 对象池复用时重置生命值
-        // 如果还没有武器，初始化默认武器
-        if (currentWeapon == null && defaultWeaponPrefab != null)
+        // 每次激活时，检查并重置为默认武器
+        ResetWeaponToDefault();
+    }
+
+    private void ResetWeaponToDefault()
+    {
+        if (defaultWeaponPrefab == null) return;
+
+        // 尝试从炮塔子物体中获取已有的武器控制器
+        currentWeapon = turretTransform.GetComponentInChildren<WeaponControllerBase>();
+
+        if (currentWeapon != null)
         {
-            InstantiateDefaultWeapon();
+            // 比对已有武器是否为默认武器。
+            // 使用名字比对（去除 Instantiate 自动生成的 "(Clone)" 后缀）
+            string currentName = currentWeapon.gameObject.name.Replace("(Clone)", "").Trim();
+            if (currentName == defaultWeaponPrefab.name)
+            {
+                // 是默认武器，状态正确，直接返回
+                return;
+            }
+            else
+            {
+                // 不是默认武器（可能是上一次存活时切换的），将其销毁
+                Destroy(currentWeapon.gameObject);
+                currentWeapon = null;
+            }
         }
+
+        // 3. 此时 currentWeapon 必定为 null，直接初始化默认炮台
+        InstantiateDefaultWeapon();
     }
 
     // 初始化默认武器
     private void InstantiateDefaultWeapon()
     {
         GameObject weaponObj = Instantiate(defaultWeaponPrefab, turretTransform);
+        // 重命名去掉(Clone)，保证下次OnEnable时比对名字不出错
+        weaponObj.name = defaultWeaponPrefab.name;
         // 确保模型位置正确归零
         weaponObj.transform.localPosition = Vector3.zero;
         weaponObj.transform.localRotation = Quaternion.identity;

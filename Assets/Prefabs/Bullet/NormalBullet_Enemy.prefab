@@ -179,6 +179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  maxBounces: 2
+  defaultMaxBounces: 2
   damageAmount: 10
-  lifeTime: 3
+  lifeTime: 10

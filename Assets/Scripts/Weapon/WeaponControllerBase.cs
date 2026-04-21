@@ -10,7 +10,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        lastFireTime = 0f;
+        lastFireTime = -fireCooldown;
     }
 
     // 暴露给坦克的尝试开火接口

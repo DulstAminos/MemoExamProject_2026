@@ -148,9 +148,27 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         Vector3 randomDir = Random.insideUnitSphere * patrolRadius;
         randomDir.y = 0f;
         randomDir += transform.position;
-        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, patrolRadius, 1))
+
+        // 找到最近的 NavMesh 点
+        if (NavMesh.SamplePosition(randomDir, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
         {
-            agent.SetDestination(hit.position);
+            // 预先计算路径，检查是否可达
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(hit.position, path))
+            {
+                // 只有当路径状态是 Complete（完全连通）时才去执行
+                // 如果是 PathPartial（部分连通，即断路），则放弃本次选点
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    agent.SetDestination(hit.position);
+                }
+                else
+                {
+                    // 递归调用且输出日志，表示选到了不可达区域
+                    Debug.Log("选点在不可达的孤岛上，重试...");
+                    SetRandomPatrolPoint();
+                }
+            }
         }
     }
 

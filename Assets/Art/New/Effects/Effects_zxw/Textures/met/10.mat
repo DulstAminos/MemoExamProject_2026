@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: 09
+  m_Name: 10
   m_Shader: {fileID: 4800000, guid: b35233cdc262cb042b88061c790ac072, type: 3}
   m_ShaderKeywords: _DISSLOVEOFF_ON _DISSLOVEUVORPOWER_ON _DISSOLVE_ON _DISSORPOWER_ON
     _FRESNELOP_ON _FRESNEL_ONEMINUS_ON _MASKTEX_ON _SOFTPARTICLE_ON _TEXTUREALPHA_ON
@@ -175,7 +175,7 @@ Material:
     - _UspeedNiuqu_niuqu_mask: 0
     - _VPan_U: 0
     - _VPan_V: 0
-    - _VSpeed: 0.51
+    - _VSpeed: -0.51
     - _VSpeedNiuqu: 0
     - _VSpeedNiuqu_mask: 0
     - _VSpeedNiuquniuqu: 0
@@ -191,7 +191,7 @@ Material:
     - _mask_niuqu_power_copy: 0
     - _yuhua_power: 0
     m_Colors:
-    - _Color: {r: 29.508846, g: 29.508846, b: 29.508846, a: 1}
+    - _Color: {r: 14.754423, g: 14.754423, b: 14.754423, a: 0.89411765}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Fre_color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _VertexPower: {r: 1, g: 1, b: 1, a: 0}

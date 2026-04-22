@@ -24,6 +24,9 @@ public class SecurityCameraControl : MonoBehaviour
 
     void Update()
     {
+        // 镜头跟随开关与设置保持一致
+        isFollowing = DataManager.Instance.currentSave.cameraFollowOn;
+
         if (isFollowing && player != null)
         {
             UpdateCameraDynamic();

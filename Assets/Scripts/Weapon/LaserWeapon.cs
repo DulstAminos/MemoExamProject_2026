@@ -36,6 +36,13 @@ public class LaserWeapon : WeaponControllerBase
         if (Physics.Raycast(firePoint.position, direction, out RaycastHit wallHit, maxRange, blockMask))
         {
             actualRange = wallHit.distance;
+
+            // 使激光也能让伸缩墙下降
+            RetractableWall wall = wallHit.collider.GetComponent<RetractableWall>();
+            if (wall != null)
+            {
+                wall.TriggerRetraction(); // 调用墙的下降方法
+            }
         }
         lineRenderer.SetPosition(1, firePoint.position + direction * actualRange);
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8195943803452978360}
   - component: {fileID: 366703152628326631}
   - component: {fileID: 1293668006180514688}
+  - component: {fileID: 2156776565935331092}
   m_Layer: 0
   m_Name: Laser_Player_Green
   m_TagString: Untagged
@@ -159,6 +160,21 @@ MonoBehaviour:
   blockMask:
     serializedVersion: 2
     m_Bits: 10240
+--- !u!114 &2156776565935331092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035702909393742492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5d46c689aeed4480749328fb98c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilDistance: 0.3
+  recoilDuration: 0.05
+  restoreDuration: 0.2
 --- !u!1 &3352947778778552530
 GameObject:
   m_ObjectHideFlags: 0

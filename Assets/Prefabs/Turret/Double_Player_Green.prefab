@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2948305336799680248}
   - component: {fileID: 2775835068006083982}
+  - component: {fileID: 5174920745343963138}
   m_Layer: 0
   m_Name: Double_Player_Green
   m_TagString: Untagged
@@ -86,6 +87,21 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6200331139038720880, guid: 8d6fd0156ab18da40a358b23b021cb5b, type: 3}
   leftFirePoint: {fileID: 5648476110509858267}
   rightFirePoint: {fileID: 1449880957308285788}
+--- !u!114 &5174920745343963138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387921770352396718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5d46c689aeed4480749328fb98c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilDistance: 0.3
+  recoilDuration: 0.05
+  restoreDuration: 0.2
 --- !u!1 &6523323206902825686
 GameObject:
   m_ObjectHideFlags: 0

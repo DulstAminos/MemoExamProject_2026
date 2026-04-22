@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131891960982813348}
   - component: {fileID: 754567155270731352}
+  - component: {fileID: 9149164676473521394}
   m_Layer: 0
   m_Name: Normal_Player_Green
   m_TagString: Untagged
@@ -132,6 +133,21 @@ MonoBehaviour:
   fireCooldown: 0.4
   bulletPrefab: {fileID: 6200331139038720880, guid: 8d6fd0156ab18da40a358b23b021cb5b, type: 3}
   firePoint: {fileID: 5971353073480477182}
+--- !u!114 &9149164676473521394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756450000875784403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5d46c689aeed4480749328fb98c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilDistance: 0.3
+  recoilDuration: 0.05
+  restoreDuration: 0.2
 --- !u!1 &3246230945364037125
 GameObject:
   m_ObjectHideFlags: 0

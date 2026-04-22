@@ -76,6 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5420873499063264834}
   - component: {fileID: 7282663716023421010}
+  - component: {fileID: 5950090011832829784}
   m_Layer: 0
   m_Name: Double_Enemy_Purple
   m_TagString: Untagged
@@ -117,6 +118,21 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6200331139038720880, guid: 9ea421edf47d08d43810bcaad2678422, type: 3}
   leftFirePoint: {fileID: 4279024695220055087}
   rightFirePoint: {fileID: 8295221426193284230}
+--- !u!114 &5950090011832829784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222142825743108063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5d46c689aeed4480749328fb98c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilDistance: 0.3
+  recoilDuration: 0.05
+  restoreDuration: 0.2
 --- !u!1 &3248867138155788154
 GameObject:
   m_ObjectHideFlags: 0

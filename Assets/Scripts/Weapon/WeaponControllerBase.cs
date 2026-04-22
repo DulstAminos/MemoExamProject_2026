@@ -8,9 +8,12 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     protected int bonusBounceCount = 0; // 反弹增加Buff的值
 
+    private TankFireEffect fireEffect; // 开火动画脚本
+
     protected virtual void OnEnable()
     {
         lastFireTime = -fireCooldown;
+        fireEffect = GetComponent<TankFireEffect>();
     }
 
     // 暴露给坦克的尝试开火接口
@@ -20,6 +23,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
         {
             lastFireTime = Time.time;
             Fire(); // 调用子类具体的开火逻辑
+            fireEffect?.PlayRecoil(); // 播放开火动画
             return true;
         }
         return false;

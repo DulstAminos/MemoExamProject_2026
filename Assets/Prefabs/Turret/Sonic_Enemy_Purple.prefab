@@ -408,6 +408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2442761067045273568}
   - component: {fileID: 5145417698359762520}
+  - component: {fileID: 6907212963250889175}
   m_Layer: 0
   m_Name: Sonic_Enemy_Purple
   m_TagString: Untagged
@@ -447,3 +448,18 @@ MonoBehaviour:
   fireCooldown: 1
   sonicPrefab: {fileID: 8072528002885973999, guid: b07d9f730c1525d4589b567623e567da, type: 3}
   firePoint: {fileID: 1642309149779358951}
+--- !u!114 &6907212963250889175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188402502339290594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f5d46c689aeed4480749328fb98c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilDistance: 0.3
+  recoilDuration: 0.05
+  restoreDuration: 0.2

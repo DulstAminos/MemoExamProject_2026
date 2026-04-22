@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerController : TankBase
 {
+    [Header("[特效] 特效物体引用")]
+    public GameObject explosionPrefab;
+
     private Vector3 movementInput;
     private Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
     private BuffSystem buffSystem;
@@ -79,6 +82,12 @@ public class PlayerController : TankBase
     protected override void Die()
     {
         Debug.Log("玩家阵亡！");
+        // 从对象池生成爆炸特效
+        if (PoolManager.Instance != null && explosionPrefab != null)
+        {
+            PoolManager.Instance.Spawn(explosionPrefab, transform.position, Quaternion.identity);
+        }
+
         // 玩家死亡不需要回收，直接隐藏，留给GameManager处理游戏失败
         gameObject.SetActive(false);
     }

@@ -441,6 +441,7 @@ MonoBehaviour:
   moveSpeed: 3
   chassisTurnSpeed: 10
   defaultWeaponPrefab: {fileID: 5188402502339290594, guid: 4b72767c04ca0c14c9ce60a6836c46c1, type: 3}
+  explosionPrefab: {fileID: 3058922382960220528, guid: f306a600a05ef244e90dedb764567c93, type: 3}
   viewRadius: 15
   fovAngle: 120
   attackRange: 10

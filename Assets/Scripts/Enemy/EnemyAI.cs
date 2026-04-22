@@ -11,6 +11,9 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         Death           // 死亡
     }
 
+    [Header("[特效] 特效物体引用")]
+    public GameObject explosionPrefab;
+
     [Header("[AI] 视野与感知配置")]
     public float viewRadius = 15f;      // 视野距离
     [Range(0, 360)] public float fovAngle = 120f; // 视野角度
@@ -177,7 +180,11 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         currentState = AIState.Death;
         agent.enabled = false;
 
-        // TODO: 明天在这里接入爆炸特效 PoolManager.Instance.Spawn(...)
+        // 从对象池生成爆炸特效
+        if (PoolManager.Instance != null && explosionPrefab != null)
+        {
+            PoolManager.Instance.Spawn(explosionPrefab, transform.position, Quaternion.identity);
+        }
 
         base.Die(); // 调用基类回收自身
     }

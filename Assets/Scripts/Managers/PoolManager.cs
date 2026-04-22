@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PoolManager : MonoBehaviour
 {
@@ -20,6 +21,34 @@ public class PoolManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+    }
+
+    // 注册场景加载事件
+    private void OnEnable()
+    {
+        // 订阅场景加载事件
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // 注销场景加载事件
+    private void OnDisable()
+    {
+        // 注销事件，防止内存泄漏
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // 当任何场景加载完毕时，自动触发此方法
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ClearPool(); // 自动清理对象池
+    }
+
+    // 清理字典数据
+    public void ClearPool()
+    {
+        // 因为旧场景的 GameObject 已经被 Unity 引擎自动销毁了，只需要把字典和队列清空，丢弃这些失效的引用即可。
+        poolDictionary.Clear();
+        Debug.Log($"对象池已自动清理。进入新场景：{SceneManager.GetActiveScene().name}");
     }
 
     // 从对象池取物体

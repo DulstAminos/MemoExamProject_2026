@@ -447,7 +447,7 @@ MonoBehaviour:
   attackRange: 10
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 6144
+    m_Bits: 0
   patrolRadius: 10
 --- !u!1 &6730830187851513383
 GameObject:

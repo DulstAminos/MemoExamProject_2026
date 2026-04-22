@@ -8,7 +8,7 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance;
 
-    public GameState CurrentState { get; private set; }
+    public GameState CurrentState { get; set; }
     private int remainingEnemies;
     private bool isGameOver = false;
 
@@ -20,6 +20,8 @@ public class GameStateManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        CurrentState = GameState.MainMenu;
     }
 
     private void Start()

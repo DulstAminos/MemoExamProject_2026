@@ -55,11 +55,16 @@ public class LevelManager : MonoBehaviour
     {
         DataManager.Instance.Save(); // 切换前自动保存
         SceneManager.LoadScene(name);
+        GameStateManager.Instance.InitLevel();
     }
 
     // 关卡重玩
     public void RestartCurrentLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     // 加载主菜单
-    public void LoadMainMenu() => SceneManager.LoadScene("MainMenu");
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        GameStateManager.Instance.CurrentState = GameState.MainMenu;
+    }
 }

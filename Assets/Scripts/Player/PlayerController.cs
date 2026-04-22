@@ -90,5 +90,8 @@ public class PlayerController : TankBase
 
         // 玩家死亡不需要回收，直接隐藏，留给GameManager处理游戏失败
         gameObject.SetActive(false);
+
+        // 调用玩家死亡接口，触发游戏失败
+        GameStateManager.Instance.OnPlayerDead();
     }
 }

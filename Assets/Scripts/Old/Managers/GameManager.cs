@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 /// 全局游戏管理单例
 /// 负责：游戏状态、暂停、全局变量、场景控制
 /// </summary>
-public class GameManager : MonoBehaviour
+public class GameManager_Old : MonoBehaviour
 {
     // 静态唯一实例
-    public static GameManager Instance { get; private set; }
+    public static GameManager_Old Instance { get; private set; }
 
     // 游戏状态枚举
     public enum GameState

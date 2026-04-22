@@ -85,9 +85,10 @@ public class GameStateManager : MonoBehaviour
             int stars = LevelManager.Instance.CalculateStars(timeTaken);
             Debug.Log($"胜利！获得 {stars} 星");
 
-            // 更新存档进度（假设关卡名包含数字，或根据配置表索引）
-            int currentLevelIdx = LevelManager.Instance.levelConfigs.FindIndex(c => c.sceneName == SceneManager.GetActiveScene().name);
-            DataManager.Instance.UpdateReachedLevel(currentLevelIdx + 2); // 解锁下一关
+            // 获取当前关卡的序号
+            int currentLevelIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            DataManager.Instance.UpdateReachedLevel(currentLevelIndex + 1); // 解锁下一关
+            DataManager.Instance.Save();
         }
         else
         {

@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -31,8 +32,10 @@ public class DataManager : MonoBehaviour
     public void Save()
     {
         string json = JsonUtility.ToJson(currentSave);
+        // 存入硬盘，键名为 "TankHeroSave"
         PlayerPrefs.SetString("TankHeroSave", json);
-        PlayerPrefs.Save();
+        PlayerPrefs.Save(); // 强制立即写入硬盘
+        Debug.Log("游戏已保存: " + json);
     }
 
     // 加载存档
@@ -41,7 +44,14 @@ public class DataManager : MonoBehaviour
         if (PlayerPrefs.HasKey("TankHeroSave"))
         {
             string json = PlayerPrefs.GetString("TankHeroSave");
+            // 将 JSON 字符串还原为 SaveData 类
             currentSave = JsonUtility.FromJson<SaveData>(json);
+            Debug.Log("读取存档成功: " + json);
+        }
+        else
+        {
+            Debug.Log("未找到存档，创建新存档。");
+            Save(); // 没有存档则生成一个默认存档
         }
     }
 
@@ -59,6 +69,12 @@ public class DataManager : MonoBehaviour
     public void ResetSave()
     {
         currentSave = new SaveData();
+        Save();
+    }
+
+    // 异常保护：游戏退出时自动保存
+    private void OnApplicationQuit()
+    {
         Save();
     }
 }

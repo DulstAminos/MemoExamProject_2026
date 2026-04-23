@@ -211,13 +211,13 @@ MonoBehaviour:
   defaultWeaponPrefab: {fileID: 3222142825743108063, guid: 6109f10e901c2034e82341f194bf278d, type: 3}
   healthBar: {fileID: 6529519979209038088}
   explosionPrefab: {fileID: 3058922382960220528, guid: f306a600a05ef244e90dedb764567c93, type: 3}
-  viewRadius: 15
+  viewRadius: 12
   fovAngle: 120
-  attackRange: 10
+  attackRange: 7
   obstacleMask:
     serializedVersion: 2
     m_Bits: 6144
-  patrolRadius: 10
+  patrolRadius: 3
 --- !u!1 &3567289912049822927
 GameObject:
   m_ObjectHideFlags: 0

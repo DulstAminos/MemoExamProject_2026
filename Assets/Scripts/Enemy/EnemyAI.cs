@@ -20,6 +20,11 @@ public class EnemyAI : TankBase // 继承你的坦克基类
     public float attackRange = 10f;     // 攻击距离
     public LayerMask obstacleMask; // 用于配置哪些图层会阻挡视野
 
+    [Header("[AI] 追逐超时配置")]
+    public float maxLostSightTime = 5f; // 丢失视野后放弃追逐的时间（秒）
+    private float lostSightTimer = 0f;   // 计时器
+    private bool isPlayerVisible = false; // 标记当前帧是否能看见玩家
+
     [Header("[AI] 游走配置")]
     public float patrolRadius = 20f;    // 游走范围半径
 
@@ -91,6 +96,8 @@ public class EnemyAI : TankBase // 继承你的坦克基类
 
     private void CheckFOV()
     {
+        isPlayerVisible = false; // 重置标记
+
         if (targetPlayer == null || !targetPlayer.gameObject.activeInHierarchy) return;
 
         Vector3 dirToPlayer = (targetPlayer.position - transform.position).normalized;
@@ -107,7 +114,15 @@ public class EnemyAI : TankBase // 继承你的坦克基类
                 // 看到玩家，刷新记忆点，进入追逐
                 lastKnownPlayerPos = targetPlayer.position;
                 hasMemory = true;
-                currentState = AIState.ChaseAndFire;
+                isPlayerVisible = true;
+
+                lostSightTimer = 0f; // 计时器归零
+
+                // 如果当前是巡逻状态，立即切入追逐状态
+                if (currentState == AIState.Patrol)
+                {
+                    currentState = AIState.ChaseAndFire;
+                }
             }
         }
     }
@@ -126,24 +141,47 @@ public class EnemyAI : TankBase // 继承你的坦克基类
 
     private void UpdateChaseAndFire()
     {
-        if (!hasMemory) return;
+        if (!hasMemory)
+        {
+            ReturnToPatrol();
+            return;
+        }
+
+        // 超时放弃
+        if (!isPlayerVisible)
+        {
+            lostSightTimer += Time.deltaTime; // 看不见玩家时，累加时间
+
+            if (lostSightTimer >= maxLostSightTime)
+            {
+                Debug.Log("跟丢了，放弃追逐");
+                ReturnToPatrol();
+                return;
+            }
+        }
 
         agent.SetDestination(lastKnownPlayerPos);
         float distanceToMemory = Vector3.Distance(transform.position, lastKnownPlayerPos);
 
-        // 无论如何，炮塔瞄准记忆点；如果距离小于攻击距离，尝试开火
+        // 瞄准逻辑：能看见玩家就瞄准玩家，看不见就瞄准最后的记忆点
+        Vector3 aimPoint = isPlayerVisible ? targetPlayer.position : lastKnownPlayerPos;
         bool tryFire = distanceToMemory <= attackRange;
-        AimAndFire(lastKnownPlayerPos, tryFire);
+        AimAndFire(aimPoint, tryFire);
 
-        // 如果到达了最后已知位置附近
-        if (distanceToMemory <= 1f)
+        // 如果走到了记忆点还没发现玩家，则恢复游走
+        if (distanceToMemory <= 1f && !isPlayerVisible)
         {
-            // 此时如果玩家不在视野里（刚才CheckFOV没有更新记忆点），说明追丢了
-            // 恢复游走状态
-            currentState = AIState.Patrol;
-            hasMemory = false;
-            SetRandomPatrolPoint();
+            ReturnToPatrol();
         }
+    }
+
+    // 返回巡逻状态
+    private void ReturnToPatrol()
+    {
+        currentState = AIState.Patrol;
+        hasMemory = false;
+        lostSightTimer = 0f;
+        SetRandomPatrolPoint();
     }
 
     private void SetRandomPatrolPoint()

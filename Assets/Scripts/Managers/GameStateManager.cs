@@ -45,7 +45,7 @@ public class GameStateManager : MonoBehaviour
         {
             InitLevel();
             // 通知UI播放关卡提示（UI脚本中会控制暂停）
-            //InGameUIManager.Instance.ShowLevelIntro();
+            InGameUIManager.Instance.ShowLevelIntro();
         }
     }
 
@@ -91,6 +91,7 @@ public class GameStateManager : MonoBehaviour
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
+            Debug.Log("敌人全部死亡");
             // 确保停止可能正在执行的失败协程（同归于尽算赢）
             if (gameOverCoroutine != null) StopCoroutine(gameOverCoroutine);
             gameOverCoroutine = StartCoroutine(GameOverRoutine(GameState.Won));
@@ -128,7 +129,7 @@ public class GameStateManager : MonoBehaviour
         }
 
         // 呼出结算UI
-        //InGameUIManager.Instance.ShowEndScreen(result == GameState.Won, stars);
+        InGameUIManager.Instance.ShowEndScreen(result == GameState.Won, stars);
     }
 
     // 暂停切换

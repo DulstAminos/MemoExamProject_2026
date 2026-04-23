@@ -39,6 +39,9 @@ public class MainMenuUIManager : MonoBehaviour
                 Click_BackToMain();
             }
         }
+
+        // 更新设置 UI 表现
+        UpdateSettings();
     }
 
     // --- 面板切换逻辑 ---
@@ -113,6 +116,14 @@ public class MainMenuUIManager : MonoBehaviour
         soundToggle.onValueChanged.AddListener(OnSoundToggleChanged);
         musicToggle.onValueChanged.AddListener(OnMusicToggleChanged);
         cameraToggle.onValueChanged.AddListener(OnCameraToggleChanged);
+    }
+
+    private void UpdateSettings()
+    {
+        // 从 DataManager 读取当前存档数据，更新 UI 表现
+        soundToggle.isOn = DataManager.Instance.currentSave.soundOn;
+        musicToggle.isOn = DataManager.Instance.currentSave.musicOn;
+        cameraToggle.isOn = DataManager.Instance.currentSave.cameraFollowOn;
     }
 
     private void OnSoundToggleChanged(bool isOn)

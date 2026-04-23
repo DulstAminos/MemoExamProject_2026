@@ -187,7 +187,7 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         }
 
         // 调用敌人死亡接口
-        GameStateManager.Instance.OnPlayerDead();
+        GameStateManager.Instance.OnEnemyDead();
 
         base.Die(); // 调用基类回收自身
     }

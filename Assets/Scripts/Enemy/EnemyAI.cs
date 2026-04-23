@@ -21,7 +21,7 @@ public class EnemyAI : TankBase // 继承你的坦克基类
     public LayerMask obstacleMask; // 用于配置哪些图层会阻挡视野
 
     [Header("[AI] 追逐超时配置")]
-    public float maxLostSightTime = 5f; // 丢失视野后放弃追逐的时间（秒）
+    public float maxLostSightTime = 3f; // 丢失视野后放弃追逐的时间（秒）
     private float lostSightTimer = 0f;   // 计时器
     private bool isPlayerVisible = false; // 标记当前帧是否能看见玩家
 
@@ -109,7 +109,7 @@ public class EnemyAI : TankBase // 继承你的坦克基类
         if (inRangeAndAngle)
         {
             // 射线检测判断遮挡
-            if (!Physics.Raycast(turretTransform.position, dirToPlayer, distanceToPlayer, obstacleMask))
+            if (!Physics.Raycast(turretTransform.position + Vector3.up / 4, dirToPlayer, distanceToPlayer, obstacleMask))
             {
                 // 看到玩家，刷新记忆点，进入追逐
                 lastKnownPlayerPos = targetPlayer.position;

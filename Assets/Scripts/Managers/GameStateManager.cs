@@ -65,6 +65,7 @@ public class GameStateManager : MonoBehaviour
         if (config != null)
         {
             remainingEnemies = config.enemyCount;
+            Debug.Log($"当前关卡有{remainingEnemies}个敌人");
         }
         else
         {
@@ -89,6 +90,7 @@ public class GameStateManager : MonoBehaviour
         if (isGameOver) return;
 
         remainingEnemies--;
+        Debug.Log($"还有{remainingEnemies}个敌人");
         if (remainingEnemies <= 0)
         {
             Debug.Log("敌人全部死亡");

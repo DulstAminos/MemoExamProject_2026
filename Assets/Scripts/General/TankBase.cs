@@ -26,6 +26,7 @@ public abstract class TankBase : MonoBehaviour
     public float CurrentHealth { get => currentHealth; }
 
     protected Rigidbody rb;
+    private bool isDead = false;
 
     protected virtual void Awake()
     {
@@ -36,6 +37,7 @@ public abstract class TankBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth; // 对象池复用时重置生命值
+        isDead = false;
         // 每次激活时，检查并重置为默认武器
         ResetWeaponToDefault();
         // 每次激活时，更新血条
@@ -155,8 +157,10 @@ public abstract class TankBase : MonoBehaviour
             healthBar.UpdateHealth(currentHealth, maxHealth);
         }
 
-        if (currentHealth <= 0)
+        // 已死亡便不再调用死亡方法
+        if (currentHealth <= 0 && !isDead)
         {
+            isDead = true;
             Die();
         }
     }
@@ -166,7 +170,6 @@ public abstract class TankBase : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        // 通用死亡逻辑：回收自身
-        PoolManager.Instance.Despawn(gameObject);
+        Destroy(gameObject);
     }
 }

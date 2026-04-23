@@ -8,9 +8,10 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance;
 
-    public GameState CurrentState { get; set; }
+    public GameState CurrentState { get; private set; }
     private int remainingEnemies;
     private bool isGameOver = false;
+    private Coroutine gameOverCoroutine;
 
     private void Awake()
     {
@@ -20,14 +21,27 @@ public class GameStateManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        CurrentState = GameState.MainMenu;
     }
 
-    private void Start()
+    // 使用事件监听场景加载
+    private void OnEnable()
     {
-        // 如果不是在主菜单，则自动开始游戏逻辑
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu")
+        {
+            CurrentState = GameState.MainMenu;
+            isGameOver = true; // 在主菜单不需要游戏判定
+        }
+        else
         {
             InitLevel();
         }
@@ -39,10 +53,21 @@ public class GameStateManager : MonoBehaviour
         isGameOver = false;
         CurrentState = GameState.Playing;
 
+        if (gameOverCoroutine != null)
+        {
+            StopCoroutine(gameOverCoroutine);
+            gameOverCoroutine = null;
+        }
+
         LevelConfig config = LevelManager.Instance.GetCurrentLevelConfig();
         if (config != null)
         {
             remainingEnemies = config.enemyCount;
+        }
+        else
+        {
+            remainingEnemies = 0;
+            Debug.LogWarning("当前场景无关卡配置，无法初始化敌人数量。");
         }
 
         LevelManager.Instance.StartTimer();
@@ -52,8 +77,8 @@ public class GameStateManager : MonoBehaviour
     // 玩家死亡接口
     public void OnPlayerDead()
     {
-        if (isGameOver) return;
-        StartCoroutine(GameOverRoutine(GameState.Lost));
+        if (isGameOver || CurrentState == GameState.Won) return; // 如果已经赢了，玩家死后不触发失败
+        gameOverCoroutine = StartCoroutine(GameOverRoutine(GameState.Lost));
     }
 
     // 敌人死亡接口
@@ -64,41 +89,43 @@ public class GameStateManager : MonoBehaviour
         remainingEnemies--;
         if (remainingEnemies <= 0)
         {
-            StartCoroutine(GameOverRoutine(GameState.Won));
+            // 确保停止可能正在执行的失败协程（同归于尽算赢）
+            if (gameOverCoroutine != null) StopCoroutine(gameOverCoroutine);
+            gameOverCoroutine = StartCoroutine(GameOverRoutine(GameState.Won));
         }
     }
 
     // 游戏结束协程
     private IEnumerator GameOverRoutine(GameState result)
     {
+        // 先锁定状态，防止等待期间发生意外更改
+        isGameOver = true;
+
         // 等待1.5秒
         yield return new WaitForSecondsRealtime(1.5f);
 
         // 二次检查，确保胜利优先（如果在等待期间敌人全灭了）
         if (remainingEnemies <= 0) result = GameState.Won;
 
-        if (isGameOver) yield break;
-        isGameOver = true;
         CurrentState = result;
 
         if (result == GameState.Won)
         {
             float timeTaken = LevelManager.Instance.GetElapsedTime();
             int stars = LevelManager.Instance.CalculateStars(timeTaken);
-            Debug.Log($"胜利！获得 {stars} 星");
+            Debug.Log($"胜利！用时：{timeTaken:F1}秒，获得 {stars} 星");
 
-            // 获取当前关卡的序号
-            int currentLevelIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-            DataManager.Instance.UpdateReachedLevel(currentLevelIndex + 1); // 解锁下一关
-            DataManager.Instance.Save();
+            // 基于配置列表计算下一关解锁
+            int currentLevelNum = LevelManager.Instance.GetCurrentLevelNumber();
+            DataManager.Instance.UpdateReachedLevel(currentLevelNum + 1);
         }
         else
         {
             Debug.Log("失败！");
         }
 
-        // 此处应调用UI显示结算界面
-        // UIManager.Instance.ShowEndScreen(result);
+        // TODO: 通知 UIManager 显示结算面板
+        // UIManager.Instance.ShowEndScreen(result, stars);
     }
 
     // 暂停切换

@@ -1,4 +1,3 @@
-using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -9,7 +8,7 @@ public class DataManager : MonoBehaviour
     [System.Serializable]
     public class SaveData
     {
-        public int reachedLevel = 1;
+        public int reachedLevel = 1; // 1代表第1关，以此类推
         public bool soundOn = true;
         public bool musicOn = true;
         public bool cameraFollowOn = true;
@@ -51,7 +50,7 @@ public class DataManager : MonoBehaviour
         else
         {
             Debug.Log("未找到存档，创建新存档。");
-            Save(); // 没有存档则生成一个默认存档
+            ResetSave(); // 没有存档则生成一个默认存档
         }
     }
 

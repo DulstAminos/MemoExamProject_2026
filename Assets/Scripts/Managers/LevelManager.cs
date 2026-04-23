@@ -26,6 +26,10 @@ public class LevelManager : MonoBehaviour
     public LevelConfig GetCurrentLevelConfig()
     {
         string currentName = SceneManager.GetActiveScene().name;
+
+        // 主菜单不需要LevelConfig，直接返回null即可
+        if (currentName == "MainMenu") return null;
+
         currentLevelConfig = levelConfigs.Find(c => c.sceneName == currentName);
 
         if (currentLevelConfig == null)
@@ -33,6 +37,14 @@ public class LevelManager : MonoBehaviour
             Debug.LogError($"未找到关卡 {currentName} 的配置！请检查LevelManager列表。");
         }
         return currentLevelConfig;
+    }
+
+    // 获取当前关卡在列表中的序号（1表示第一关）
+    public int GetCurrentLevelNumber()
+    {
+        if (currentLevelConfig == null) return 1;
+        int index = levelConfigs.IndexOf(currentLevelConfig);
+        return index + 1; // 索引0 对应 关卡1
     }
 
     // 开始计时
@@ -55,7 +67,6 @@ public class LevelManager : MonoBehaviour
     {
         DataManager.Instance.Save(); // 切换前自动保存
         SceneManager.LoadScene(name);
-        GameStateManager.Instance.InitLevel();
     }
 
     // 关卡重玩
@@ -65,6 +76,5 @@ public class LevelManager : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-        GameStateManager.Instance.CurrentState = GameState.MainMenu;
     }
 }

@@ -19,6 +19,9 @@ public abstract class TankBase : MonoBehaviour
     protected WeaponControllerBase currentWeapon; // 当前挂载的武器控制器
 
     protected float currentHealth;
+    // 提供获取当前生命值的公共接口
+    public float CurrentHealth { get => currentHealth; }
+
     protected Rigidbody rb;
 
     protected virtual void Awake()
@@ -58,7 +61,7 @@ public abstract class TankBase : MonoBehaviour
             }
         }
 
-        // 3. 此时 currentWeapon 必定为 null，直接初始化默认炮台
+        // 此时 currentWeapon 必定为 null，直接初始化默认炮台
         InstantiateDefaultWeapon();
     }
 

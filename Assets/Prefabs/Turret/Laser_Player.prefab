@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ce32230605ca64982fdbb95758e226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireCooldown: 1
+  fireCooldown: 0.8
   firePoint: {fileID: 7662726606984642273}
   maxRange: 50
-  damage: 20
+  damage: 30
   laserDuration: 0.5
   blockMask:
     serializedVersion: 2

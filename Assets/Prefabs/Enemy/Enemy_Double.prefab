@@ -212,11 +212,12 @@ MonoBehaviour:
   healthBar: {fileID: 6529519979209038088}
   explosionPrefab: {fileID: 3058922382960220528, guid: f306a600a05ef244e90dedb764567c93, type: 3}
   viewRadius: 12
-  fovAngle: 120
-  attackRange: 7
+  fovAngle: 130
+  attackRange: 8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 6144
+  maxLostSightTime: 5
   patrolRadius: 3
 --- !u!1 &3567289912049822927
 GameObject:

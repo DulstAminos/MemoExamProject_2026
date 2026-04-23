@@ -529,10 +529,11 @@ MonoBehaviour:
   explosionPrefab: {fileID: 3058922382960220528, guid: f306a600a05ef244e90dedb764567c93, type: 3}
   viewRadius: 10
   fovAngle: 140
-  attackRange: 7
+  attackRange: 8
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
+  maxLostSightTime: 5
   patrolRadius: 6
 --- !u!1 &6730830187851513383
 GameObject:

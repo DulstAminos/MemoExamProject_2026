@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LevelConfig_1
   m_EditorClassIdentifier: 
   sceneName: Level_1
-  enemyCount: 2
-  star3Time: 60
-  star2Time: 120
+  enemyCount: 3
+  star3Time: 50
+  star2Time: 100

@@ -130,6 +130,7 @@ public class GameStateManager : MonoBehaviour
 
         // ∫Ù≥ˆΩ·À„UI
         InGameUIManager.Instance.ShowEndScreen(result == GameState.Won, stars);
+        TogglePause();
     }
 
     // ‘›Õ£«–ªª

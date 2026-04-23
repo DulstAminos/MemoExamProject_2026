@@ -182,3 +182,6 @@ MonoBehaviour:
   defaultMaxBounces: 2
   damageAmount: 10
   lifeTime: 10
+  bounceLayers:
+    serializedVersion: 2
+    m_Bits: 10240

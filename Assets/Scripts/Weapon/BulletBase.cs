@@ -7,6 +7,8 @@ public class BulletBase : MonoBehaviour
     public int defaultMaxBounces = 2; // 默认最大反弹次数
     public float damageAmount = 10f; // 伤害
     public float lifeTime = 3f;      // 生命周期
+    [Header("反弹配置")]
+    public LayerMask bounceLayers;
 
     private int maxBounces;     // 当前最大反弹次数
     private int currentBounces = 0;
@@ -64,7 +66,7 @@ public class BulletBase : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // 判断是否撞到墙壁
-        if (collision.gameObject.CompareTag("Wall"))
+        if (((1 << collision.gameObject.layer) & bounceLayers) != 0)
         {
             currentBounces++;
             if (currentBounces > maxBounces)

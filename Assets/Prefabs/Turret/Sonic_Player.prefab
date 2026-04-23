@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e9a905ef01e2e4d8e76edd5665aefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireCooldown: 1
+  fireCooldown: 0.8
   sonicPrefab: {fileID: 4524168747951118811, guid: 8eacc3e6b651c274d996addb106a0d68, type: 3}
   firePoint: {fileID: 6091695903869079144}
 --- !u!114 &-4589804310875213976

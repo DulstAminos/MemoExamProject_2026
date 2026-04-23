@@ -112,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 4285405636508415378}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.58, y: 0, z: -6.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204d222f06140bd43933168956b64c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 50
   chassisTransform: {fileID: 6506812753729766947}
   turretTransform: {fileID: 6319202074279368188}
   moveSpeed: 5

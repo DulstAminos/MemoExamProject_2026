@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2606b04d4e29f3e44904d7c4a496c3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 40
   chassisTransform: {fileID: 973935322331847323}
   turretTransform: {fileID: 6005472091046717951}
   moveSpeed: 3

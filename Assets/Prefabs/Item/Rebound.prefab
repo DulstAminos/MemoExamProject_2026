@@ -72,7 +72,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   duration: 10
   speedBonus: 5
-  bounceBonus: 2
+  bounceBonus: 3
 --- !u!114 &1116299340899628775
 MonoBehaviour:
   m_ObjectHideFlags: 0

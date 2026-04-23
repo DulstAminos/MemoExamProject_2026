@@ -203,10 +203,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2606b04d4e29f3e44904d7c4a496c3cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 100
   chassisTransform: {fileID: 8088986837855854292}
   turretTransform: {fileID: 8680809675412334803}
-  moveSpeed: 3
+  moveSpeed: 2
   chassisTurnSpeed: 10
   defaultWeaponPrefab: {fileID: 3222142825743108063, guid: 6109f10e901c2034e82341f194bf278d, type: 3}
   healthBar: {fileID: 6529519979209038088}

@@ -70,8 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   weaponPrefab: {fileID: 0}
-  duration: 5
-  speedBonus: 5
+  duration: 10
+  speedBonus: 2.5
   bounceBonus: 2
 --- !u!114 &145783421308250287
 MonoBehaviour:

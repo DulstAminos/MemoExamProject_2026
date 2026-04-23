@@ -18,6 +18,9 @@ public abstract class TankBase : MonoBehaviour
     public GameObject defaultWeaponPrefab; // 默认炮台预制体（决定敌人类别/玩家初始状态）
     protected WeaponControllerBase currentWeapon; // 当前挂载的武器控制器
 
+    [Header("[UI] 血条")]
+    public HealthBarController healthBar;
+
     protected float currentHealth;
     // 提供获取当前生命值的公共接口
     public float CurrentHealth { get => currentHealth; }
@@ -27,6 +30,7 @@ public abstract class TankBase : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        healthBar = GetComponentInChildren<HealthBarController>();
     }
 
     protected virtual void OnEnable()
@@ -34,6 +38,11 @@ public abstract class TankBase : MonoBehaviour
         currentHealth = maxHealth; // 对象池复用时重置生命值
         // 每次激活时，检查并重置为默认武器
         ResetWeaponToDefault();
+        // 每次激活时，更新血条
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealth(currentHealth, maxHealth);
+        }
     }
 
     private void ResetWeaponToDefault()
@@ -138,6 +147,14 @@ public abstract class TankBase : MonoBehaviour
     public virtual void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+        // 防止血量变成负数
+        currentHealth = Mathf.Max(currentHealth, 0);
+        // 每次受伤时，调用血条脚本更新UI并显示
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealth(currentHealth, maxHealth);
+        }
+
         if (currentHealth <= 0)
         {
             Die();

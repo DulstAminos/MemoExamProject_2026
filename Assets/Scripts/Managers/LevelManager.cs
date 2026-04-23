@@ -77,4 +77,20 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    // 判断是否有下一关
+    public bool HasNextLevel()
+    {
+        return GetCurrentLevelNumber() < levelConfigs.Count;
+    }
+
+    // 加载下一关
+    public void LoadNextLevel()
+    {
+        if (HasNextLevel())
+        {
+            int nextIndex = GetCurrentLevelNumber(); // 当前是1，索引就是1（对应第2关）
+            LoadLevel(levelConfigs[nextIndex].sceneName);
+        }
+    }
 }

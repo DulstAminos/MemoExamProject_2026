@@ -44,6 +44,8 @@ public class GameStateManager : MonoBehaviour
         else
         {
             InitLevel();
+            // 通知UI播放关卡提示（UI脚本中会控制暂停）
+            //InGameUIManager.Instance.ShowLevelIntro();
         }
     }
 
@@ -108,11 +110,12 @@ public class GameStateManager : MonoBehaviour
         if (remainingEnemies <= 0) result = GameState.Won;
 
         CurrentState = result;
+        int stars = 1;
 
         if (result == GameState.Won)
         {
             float timeTaken = LevelManager.Instance.GetElapsedTime();
-            int stars = LevelManager.Instance.CalculateStars(timeTaken);
+            stars = LevelManager.Instance.CalculateStars(timeTaken);
             Debug.Log($"胜利！用时：{timeTaken:F1}秒，获得 {stars} 星");
 
             // 基于配置列表计算下一关解锁
@@ -124,8 +127,8 @@ public class GameStateManager : MonoBehaviour
             Debug.Log("失败！");
         }
 
-        // TODO: 通知 UIManager 显示结算面板
-        // UIManager.Instance.ShowEndScreen(result, stars);
+        // 呼出结算UI
+        //InGameUIManager.Instance.ShowEndScreen(result == GameState.Won, stars);
     }
 
     // 暂停切换

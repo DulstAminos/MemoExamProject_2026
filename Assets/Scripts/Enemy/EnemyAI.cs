@@ -193,7 +193,7 @@ public class EnemyAI : TankBase // 继承你的坦克基类
     }
 
 #if UNITY_EDITOR
-    // 这是一个只在编辑器显示的辅助功能，帮你可视化视野
+    // 这是一个只在编辑器显示的辅助功能，帮助可视化视野
     private void OnDrawGizmosSelected()
     {
         if (turretTransform != null)

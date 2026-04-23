@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1293668006180514688}
   - component: {fileID: 2156776565935331092}
   m_Layer: 0
-  m_Name: Laser_Player_Green
+  m_Name: Laser_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   recoilDistance: 0.3
   recoilDuration: 0.05
   restoreDuration: 0.2
---- !u!1 &3352947778778552530
+--- !u!1 &2625146385938258011
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,46 +183,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1748418774179737770}
-  - component: {fileID: 9186379364239643945}
-  - component: {fileID: 4373449181707482567}
+  - component: {fileID: 4665118744799788538}
+  - component: {fileID: 5031154849742916236}
+  - component: {fileID: 5970816864536415361}
   m_Layer: 0
-  m_Name: greentank_back_Baked
+  m_Name: Prismtank_back_Baked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1748418774179737770
+--- !u!4 &4665118744799788538
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3352947778778552530}
+  m_GameObject: {fileID: 2625146385938258011}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.594206, y: -0.38330045, z: -0.38330048, w: 0.594206}
-  m_LocalPosition: {x: -0.45017248, y: 0.41621822, z: -0.00031859567}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -4.5878133e-17, y: 0.22509098, z: -4.5878133e-17, w: 0.9743378}
+  m_LocalPosition: {x: -0.29510581, y: 0.4071384, z: -0.006895691}
+  m_LocalScale: {x: 0.30510992, y: 0.032589998, z: 0.15243997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4734464136636300077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9186379364239643945
+--- !u!33 &5031154849742916236
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3352947778778552530}
-  m_Mesh: {fileID: -667472232013082529, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
---- !u!23 &4373449181707482567
+  m_GameObject: {fileID: 2625146385938258011}
+  m_Mesh: {fileID: 4174739640702022708, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
+--- !u!23 &5970816864536415361
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3352947778778552530}
+  m_GameObject: {fileID: 2625146385938258011}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -236,7 +236,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2880141876508463453, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
+  - {fileID: 7549433658205537024, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -283,95 +283,12 @@ Transform:
   m_GameObject: {fileID: 4529612925120499600}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.42, z: 0.564}
+  m_LocalPosition: {x: 0, y: 0.373, z: 0.717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8195943803452978360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4935618801955588219
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 793185892267395729}
-  - component: {fileID: 7423674905127789301}
-  - component: {fileID: 8369941787476933155}
-  m_Layer: 0
-  m_Name: greentank_cannon_Baked
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &793185892267395729
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4935618801955588219}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.594206, y: -0.38330045, z: -0.38330042, w: 0.59420604}
-  m_LocalPosition: {x: 0.048277974, y: 0.42669195, z: -0.00016908022}
-  m_LocalScale: {x: 109.251656, y: 109.251656, z: 109.25164}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4734464136636300077}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7423674905127789301
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4935618801955588219}
-  m_Mesh: {fileID: 9212734885799598697, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
---- !u!23 &8369941787476933155
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4935618801955588219}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -5450554356098937899, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5879095644726547514
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,13 +318,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1748418774179737770}
-  - {fileID: 4091589502300647338}
-  - {fileID: 793185892267395729}
-  - {fileID: 6233390243240630327}
+  - {fileID: 4665118744799788538}
+  - {fileID: 6965688115880410687}
+  - {fileID: 7736510216991414570}
   m_Father: {fileID: 8195943803452978360}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!1 &7897130341946571891
+--- !u!1 &6020190091536051026
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,46 +331,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4091589502300647338}
-  - component: {fileID: 5736763951176279375}
-  - component: {fileID: 5180876268939749741}
+  - component: {fileID: 7736510216991414570}
+  - component: {fileID: 5142097724817332897}
+  - component: {fileID: 510785124594338012}
   m_Layer: 0
-  m_Name: greentank_body_Baked
+  m_Name: Prismtank_cannon_Baked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4091589502300647338
+--- !u!4 &7736510216991414570
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897130341946571891}
+  m_GameObject: {fileID: 6020190091536051026}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.594206, y: -0.38330045, z: -0.38330048, w: 0.594206}
-  m_LocalPosition: {x: 0.048277974, y: 0.42669195, z: -0.00016908022}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -4.5878133e-17, y: 0.22509098, z: -4.5878133e-17, w: 0.9743378}
+  m_LocalPosition: {x: 0.2736984, y: 0.37797335, z: 0.08824408}
+  m_LocalScale: {x: 0.30510992, y: 0.032589998, z: 0.15243997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4734464136636300077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5736763951176279375
+--- !u!33 &5142097724817332897
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897130341946571891}
-  m_Mesh: {fileID: 6564441782971652914, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
---- !u!23 &5180876268939749741
+  m_GameObject: {fileID: 6020190091536051026}
+  m_Mesh: {fileID: -7135289222275096396, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
+--- !u!23 &510785124594338012
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897130341946571891}
+  m_GameObject: {fileID: 6020190091536051026}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -468,7 +384,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -9014728736978582400, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
+  - {fileID: 7549433658205537024, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,7 +406,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8040592423762588472
+--- !u!1 &7105032833639644674
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -498,46 +414,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6233390243240630327}
-  - component: {fileID: 4182409267915414107}
-  - component: {fileID: 189459676991489809}
+  - component: {fileID: 6965688115880410687}
+  - component: {fileID: 3472843156655476633}
+  - component: {fileID: 4740188922858803573}
   m_Layer: 0
-  m_Name: greentank_joint.001_Baked
+  m_Name: Prismtank_body_Baked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6233390243240630327
+--- !u!4 &6965688115880410687
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8040592423762588472}
+  m_GameObject: {fileID: 7105032833639644674}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.594206, y: -0.38330045, z: -0.38330048, w: 0.594206}
-  m_LocalPosition: {x: -0.4048718, y: 0.42077595, z: -0.0032996624}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -4.5878133e-17, y: 0.22509098, z: -4.5878133e-17, w: 0.9743378}
+  m_LocalPosition: {x: -0.12836532, y: 0.41205147, z: 0.00046265125}
+  m_LocalScale: {x: 0.30510992, y: 0.032589998, z: 0.15243997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4734464136636300077}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4182409267915414107
+--- !u!33 &3472843156655476633
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8040592423762588472}
-  m_Mesh: {fileID: 87126660099923013, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
---- !u!23 &189459676991489809
+  m_GameObject: {fileID: 7105032833639644674}
+  m_Mesh: {fileID: -6749703044059121729, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
+--- !u!23 &4740188922858803573
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8040592423762588472}
+  m_GameObject: {fileID: 7105032833639644674}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -551,7 +467,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8723911006007510930, guid: 8b168d6f7ffa0734d864cb5630c69558, type: 3}
+  - {fileID: 7549433658205537024, guid: ab245d44d5388e64793127c14d3e9a71, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

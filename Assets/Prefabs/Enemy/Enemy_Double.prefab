@@ -689,7 +689,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3222142825743108063, guid: 6109f10e901c2034e82341f194bf278d, type: 3}
       propertyPath: m_Name
-      value: Double_Enemy_Purple
+      value: Double_Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5420873499063264834, guid: 6109f10e901c2034e82341f194bf278d, type: 3}
       propertyPath: m_LocalPosition.x
